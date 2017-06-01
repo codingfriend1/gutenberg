@@ -15,7 +15,8 @@ import { IconButton } from 'components';
 import './style.scss';
 import { isFirstBlock, isLastBlock } from '../selectors';
 
-function BlockMover( { onMoveUp, onMoveDown, isFirst, isLast } ) {
+// Only exported for testing.
+export function BlockMover( { onMoveUp, onMoveDown, isFirst, isLast } ) {
 	// We emulate a disabled state because forcefully applying the `disabled`
 	// attribute on the button while it has focus causes the screen to change
 	// to an unfocused state (body as active element) without firing blur on,
