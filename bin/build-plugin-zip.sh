@@ -7,7 +7,9 @@ set -e
 cd "$(dirname "$0")"
 cd ..
 
-# Make sure there are no changes in the working tree
+# Make sure there are no changes in the working tree.  Release builds should be
+# traceable to a particular commit and reliably reproducible.  (This is not
+# totally true at the moment because we download nightly vendor scripts).
 changed=
 if ! git diff --exit-code > /dev/null; then
 	changed="file(s) modified"
@@ -31,6 +33,9 @@ fi
 
 # Download all vendor scripts
 vendor_scripts=""
+# Using `command | while read...` is more typical, but the inside of the while
+# loop will run under a separate process this way, meaning that it cannot
+# modify $vendor_scripts.  See:  https://stackoverflow.com/a/16855194
 exec 3< <(
 	# minified versions of vendor scripts
 	php bin/get-vendor-scripts.php
@@ -50,7 +55,9 @@ npm run build
 # Remove any existing zip file
 rm -f gutenberg.zip
 
-# Temporarily modify `gutenberg.php` with production constants defined
+# Temporarily modify `gutenberg.php` with production constants defined.  Use a
+# temp file because `bin/generate-gutenberg-php.php` reads from `gutenberg.php`
+# so we need to avoid writing to that file at the same time.
 php bin/generate-gutenberg-php.php > gutenberg.tmp.php
 mv gutenberg.tmp.php gutenberg.php
 
