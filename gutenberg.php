@@ -11,9 +11,9 @@
 
 define( 'GUTENBERG__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-### BEGIN DEFINES
+### BEGIN AUTO-GENERATED DEFINES
 define( 'GUTENBERG_DEVELOPMENT_MODE', true );
-### END DEFINES
+### END AUTO-GENERATED DEFINES
 
 require_once dirname( __FILE__ ) . '/lib/blocks.php';
 require_once dirname( __FILE__ ) . '/lib/client-assets.php';

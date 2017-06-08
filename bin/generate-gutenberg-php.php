@@ -40,13 +40,13 @@ while ( true ) {
 	}
 
 	switch ( trim( $line ) ) {
-		case '### BEGIN DEFINES':
+		case '### BEGIN AUTO-GENERATED DEFINES':
 			$inside_defines = true;
 			echo $line;
 			print_production_defines();
 			break;
 
-		case '### END DEFINES':
+		case '### END AUTO-GENERATED DEFINES':
 			$inside_defines = false;
 			echo $line;
 			break;
