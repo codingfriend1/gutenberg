@@ -38,8 +38,8 @@ exec 3< <(
 	php bin/get-vendor-scripts.php debug
 )
 while IFS='|' read -u 3 url filename; do
-	wget -nv "$url" -O "vendor/$$.tmp.js"
-	mv -v "vendor/$$.tmp.js" "vendor/$filename"
+	wget -nv "$url" -O "vendor/_download.tmp.js"
+	mv -v "vendor/_download.tmp.js" "vendor/$filename"
 	vendor_scripts="$vendor_scripts vendor/$filename"
 done
 
@@ -51,8 +51,8 @@ npm run build
 rm -f gutenberg.zip
 
 # Temporarily modify `gutenberg.php` with production constants defined
-php bin/generate-gutenberg-php.php > gutenberg.$$.php
-mv gutenberg.$$.php gutenberg.php
+php bin/generate-gutenberg-php.php > gutenberg.tmp.php
+mv gutenberg.tmp.php gutenberg.php
 
 # Generate the plugin zip file
 zip -r gutenberg.zip \
