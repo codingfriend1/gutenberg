@@ -43,8 +43,11 @@ exec 3< <(
 	php bin/get-vendor-scripts.php debug
 )
 while IFS='|' read -u 3 url filename; do
-	wget -nv "$url" -O "vendor/_download.tmp.js"
-	mv -v "vendor/_download.tmp.js" "vendor/$filename"
+	echo "$url"
+	echo -n " > vendor/$filename ... "
+	curl -s "$url" -o "vendor/_download.tmp.js"
+	mv "vendor/_download.tmp.js" "vendor/$filename"
+	echo "done!"
 	vendor_scripts="$vendor_scripts vendor/$filename"
 done
 
